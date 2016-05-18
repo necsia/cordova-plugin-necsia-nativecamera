@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
+           id="es.necsia.nativecamera"
+      version="0.2.0">
+    <name>Necsia Mobility Team Native Camera</name>
+
+    <js-module src="www/NativeCameraConstants.js" name="NativeCameraConstants">
+        <clobbers target="NativeCameraConstants" />
+    </js-module>
+
+    <js-module src="www/NativeCameraPopoverOptions.js" name="NativeCameraPopoverOptions">
+        <clobbers target="NativeCameraPopoverOptions" />
+    </js-module>
+
+    <js-module src="www/NativeCamera.js" name="nativeCamera">
+        <clobbers target="navigator.nativeCamera" />
+    </js-module>
+
+    <!-- android -->
+    <platform name="android">
+        <config-file target="res/xml/config.xml" parent="/*">
+            <feature name="NativeCamera">
+                <param name="android-package" value="es.necsia.nativecamera.NativeCameraLauncher"/>
+            </feature>
+        </config-file>
+
+        <config-file target="AndroidManifest.xml" parent="/*">
+            <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+            <uses-permission android:name="android.permission.CAMERA" />
+            <uses-feature android:name="android.hardware.camera.autofocus" android:required="false" />
+        </config-file>
+
+        <config-file target="AndroidManifest.xml" parent="/manifest/application">
+            <activity
+                android:label="nativecameraplugin"
+                android:name="es.necsia.nativecamera.NativeCameraActivity"
+                android:screenOrientation="portrait"
+                android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
+            </activity>
+        </config-file>
+
+        <source-file src="src/android/NativeCameraActivity.java" target-dir="src/es/necsia/nativecameraplugin" />
+        <source-file src="src/android/NativeCameraLauncher.java" target-dir="src/es/necsia/nativecameraplugin" />
+        <source-file src="src/android/ExifHelper.java" target-dir="src/es/necsia/nativecameraplugin" />
+        <source-file src="src/android/nativecameraplugin.xml" target-dir="res/layout" />
+        <source-file src="res/btn_shot.png" target-dir="res/drawable" />
+        <source-file src="res/btn_flip.png" target-dir="res/drawable" />
+        <source-file src="res/btn_flash_on.png" target-dir="res/drawable" />
+        <source-file src="res/btn_flash_no.png" target-dir="res/drawable" />
+        <source-file src="res/btn_flash_auto.png" target-dir="res/drawable" />
+        <source-file src="res/viewfinder.png" target-dir="res/drawable" />
+
+        <js-module src="www/NativeCameraPopoverHandle.js" name="NativeCameraPopoverHandle">
+            <clobbers target="NativeCameraPopoverHandle" />
+        </js-module>
+
+     </platform>
+
+</plugin>
